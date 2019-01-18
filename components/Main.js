@@ -150,6 +150,7 @@ margin:3px;
 margin-right:15px;
 font-size:16px;
 font-weight:bold;
+&:hover { text-decoration: underline; cursor:pointer; }
 `
 const RemoveIcon=styled.img`
 position:absolute;
@@ -198,6 +199,13 @@ class Main extends Component{
         var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
         var match = url.match(regExp);
         return (match&&match[7].length==11)? match[7] : false;
+    }
+
+    openVideo(url,time)
+    {
+      
+      window.open(url+"&t="+time);
+
     }
 
     removeNote(id,ctx)
@@ -273,11 +281,11 @@ class Main extends Component{
        
        let videID=this.youtube_parser(obj.url);
                                 return (
-                             <RowDiv key={i}>
+                             <RowDiv key={i} >
                               <VideImg src={"http://img.youtube.com/vi/"+videID+"/default.jpg"}></VideImg>
                               <RightDiv>
                                 <DivTitleRemove>
-                                  <PTitle>{obj.title}</PTitle>
+                                  <PTitle onClick={()=> this.openVideo(obj.url,obj.time)}>{obj.title}</PTitle>
                                   <RemoveIcon onClick={()=> this.removeNote(obj._id,ctx)} src={require('../assets/cross.png')}></RemoveIcon>
                                 </DivTitleRemove>
                                 <NoteTime>

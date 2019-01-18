@@ -42237,7 +42237,7 @@ function _templateObject14() {
 }
 
 function _templateObject13() {
-  var data = _taggedTemplateLiteral(["\nmargin:3px;\nmargin-right:15px;\nfont-size:16px;\nfont-weight:bold;\n"]);
+  var data = _taggedTemplateLiteral(["\nmargin:3px;\nmargin-right:15px;\nfont-size:16px;\nfont-weight:bold;\n&:hover { text-decoration: underline; cursor:pointer; }\n"]);
 
   _templateObject13 = function _templateObject13() {
     return data;
@@ -42422,6 +42422,11 @@ function (_Component) {
       return match && match[7].length == 11 ? match[7] : false;
     }
   }, {
+    key: "openVideo",
+    value: function openVideo(url, time) {
+      window.open(url + "&t=" + time);
+    }
+  }, {
     key: "removeNote",
     value: function removeNote(id, ctx) {
       fetch('https://youtube-research-extension.herokuapp.com/api/entries/' + id, {
@@ -42473,7 +42478,11 @@ function (_Component) {
             key: i
           }, _react.default.createElement(VideImg, {
             src: "http://img.youtube.com/vi/" + videID + "/default.jpg"
-          }), _react.default.createElement(RightDiv, null, _react.default.createElement(DivTitleRemove, null, _react.default.createElement(PTitle, null, obj.title), _react.default.createElement(RemoveIcon, {
+          }), _react.default.createElement(RightDiv, null, _react.default.createElement(DivTitleRemove, null, _react.default.createElement(PTitle, {
+            onClick: function onClick() {
+              return _this.openVideo(obj.url, obj.time);
+            }
+          }, obj.title), _react.default.createElement(RemoveIcon, {
             onClick: function onClick() {
               return _this.removeNote(obj._id, ctx);
             },
@@ -43708,7 +43717,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "7259" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "11462" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

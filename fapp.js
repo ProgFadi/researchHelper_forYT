@@ -5,6 +5,7 @@ import Context from './Context.js'
 import SimpleAppBar from './components/Header.js'
 import Main from './components/Main'
 import Fuse from 'fuse.js'
+import {toaster} from 'evergreen-ui'
 
 let token='';
 class App extends Component {

@@ -224,12 +224,17 @@ class Main extends Component{
        {
          if(data.message=="deleted_successfully")
          {
-           alert('Note is deleted successfully')
+          toaster.success(
+            'Note deleted successfully'
+          )
+         
 
          }
          if(data.message=="deleted_error")
          {
-           alert('note cannot be delete, try again')
+          toaster.danger(
+            'Failed deleted'
+          )
            return;
          }
          

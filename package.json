@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^3.8.3",
+    "evergreen-ui": "^4.9.0",
     "fuse.js": "^3.3.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",

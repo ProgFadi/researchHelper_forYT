@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import Context from './Context.js'
+import {toaster,Spinner} from 'evergreen-ui'
 import LoginHeader from './components/loginHeader'
 import LogoWithName from './components/LogoWithName'
 
@@ -15,11 +16,19 @@ margin-top:50px;
 padding-top:50px;
 
 `
+
+const DivSpinner=styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+
+`
 class LoginContent extends Component {
   
     goToExtension()
     {
         alert('Go To Extension');
+       
     }
 
 
@@ -29,7 +38,11 @@ class LoginContent extends Component {
         let password=document.getElementById('password').value
         if(email=="" || password=="")
         {
-          alert('please enter your email and password to sign in');
+          
+          toaster.warning(
+            'please enter your email and password to sign in',
+            
+          )
           return;
         }
 
@@ -48,6 +61,7 @@ class LoginContent extends Component {
        if(data.hasOwnProperty('token'))
        {
         
+      
      
         localStorage.setItem('youtube_ext_user_data',JSON.stringify(data));
         var obj =JSON.parse(localStorage.getItem('youtube_ext_user_data'));
@@ -61,16 +75,25 @@ class LoginContent extends Component {
         
          if(data.message=="login_error")
          {
-           alert('Invalid email or password');
+          toaster.danger(
+            'Invalid email or password',
+            {
+              duration: 10
+            }
+          )
+          // alert('Invalid email or password');
          }
          if(data.message=="validation_error")
          {
-           alert('please enter valid email and password');
+          toaster.danger(
+            'please enter valid email and password',
+            {
+              duration: 10
+            }
+          )
+         
          }
-         if(data.message="Auth failed")
-         {
-           alert('Please check your authontication info');
-         }
+         
          return;
        }
      
@@ -102,13 +125,19 @@ class LoginContent extends Component {
       }).then(function(data) {
         if(data.hasOwnProperty('token'))
         {
-          alert('Thanks, resgistration completed')
+         
+          toaster.success(
+            'Thanks, resgistration completed'
+          )
         }
         if(data.hasOwnProperty('message'))
         {
           if(data.message=="email_already_exists")
           {
-            alert('Email is already exist');
+            toaster.danger(
+              'Email is already exist'
+            )
+            
           }
          
         }
@@ -118,7 +147,11 @@ class LoginContent extends Component {
 
      }
      else{
-       alert('please enter a valid email and password');
+      toaster.danger(
+        'please enter a valid email and password'
+      )
+      
+       
      }
        
       
@@ -132,9 +165,11 @@ class LoginContent extends Component {
         <Context.Consumer>
               {
                 (ctx) => {
+                 
                   return (
                   
                     <div>
+                   
                     <LoginHeader></LoginHeader>
                  <LogoWithName></LogoWithName>
                 
@@ -152,7 +187,14 @@ class LoginContent extends Component {
                             className="btn btn-primary" type="submit" onClick={this.login} id="btn-login">Sign in</button>
                              <button
                             className="btn btn-primary" type="submit" onClick={this.register} id="btn-reg">Register</button>
+
                     </form>
+                    <DivSpinner> 
+                  
+                    </DivSpinner>
+
+                    
+                    
                    
                    
                 </div>
@@ -161,7 +203,7 @@ class LoginContent extends Component {
         
             
             </LoginRegDiv>
-                
+            
                 </div>
                   
                
